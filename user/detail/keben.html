@@ -153,19 +153,19 @@
 
   <!-- Detail Produk -->
   <div class="product-detail">
-    <img src="produk/asbak.png" alt="Sok Asi / Keben">
+    <img src="assets/img/keben.png" alt="Sok Asi / Keben">
     <div class="product-info">
-      <h2>ASBAK</h2>
+      <h2>SOK ASI/KEBEN </h2>
  <table>
   <tr>
     <td>Harga Produk</td>
-    <td><strong>Rp50.000,00</strong></td>
+    <td><strong>Rp170.000</strong></td>
   </tr>
   <tr>
     <td>Stock</td>
     <td><strong>Tersedia</strong></td>
   </tr>
-  <tr>
+ 
     <td>Provinsi</td>
     <td><strong>Bali</strong></td>
   </tr>
@@ -173,23 +173,23 @@
     <td>Kota/Kabupaten</td>
     <td><strong>Bangli</strong></td>
   </tr>
-    <td>Link Pembelian</td>
+  <tr>
+  <td>Link Pembelian</td>
   <td>
     <a href="https://vt.tiktok.com/XXXXXXXXX/" target="_blank" style="color: #ff0050; font-weight: bold; text-decoration: none;">
       Beli di TikTok Shop
     </a>
   </td>
 </tr>
+
 </table>
 
       <div class="product-description">
-        Produk asbak berbahan baku dari bambu yang dibuat dengan kualitas terbaik.
+        Produk Keben berukuran 26 x 26 cm, berbahan baku dari bambu yang dibuat dengan kualitas terbaik.
       </div>
     </div>
-    </div> <!-- penutup .product-detail -->
-  <tr>
+     </div> <!-- penutup .product-detail -->
 
-  <tr>
   <!-- Komentar dan Rating -->
   <section class="ulasan-produk">
     <h3>Ulasan Produk</h3>
@@ -204,9 +204,7 @@
     </div>
 
     <!-- Form Komentar -->
-  <form class="form-ulasan" action="submit_review.php" method="POST">
-  <input type="hidden" name="product_id" value="1"> <!-- ID produk -->
-
+    <form class="form-ulasan" id="formUlasan">
       <label for="nama">Nama Anda</label>
       <input type="text" id="nama" placeholder="Nama Anda" required>
 
@@ -232,11 +230,11 @@
 
   <!-- Load Header & Footer -->
   <script>
-    fetch("header.html")
+    fetch("user/header.html")
       .then(response => response.text())
       .then(data => document.getElementById("header").innerHTML = data);
 
-    fetch("footer.html")
+    fetch("user/footer.html")
       .then(response => response.text())
       .then(data => document.getElementById("footer").innerHTML = data);
 

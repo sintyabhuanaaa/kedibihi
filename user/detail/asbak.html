@@ -71,7 +71,8 @@
       font-size: 14px;
       line-height: 1.6;
     }
-    /* ======== ULASAN ======== */
+
+        /* ======== ULASAN ======== */
     .ulasan-produk {
       max-width: 800px;
       margin: 40px auto;
@@ -122,6 +123,7 @@
       background: #e60046;
     }
 
+
     @media screen and (max-width: 768px) {
       .product-detail {
         flex-direction: column;
@@ -151,9 +153,9 @@
 
   <!-- Detail Produk -->
   <div class="product-detail">
-    <img src="produk/kukusan.png" alt="Sok Asi / Keben">
+    <img src="assets/img/asbak.png" alt="Sok Asi / Keben">
     <div class="product-info">
-      <h2>KUKUSAN DIMSUM</h2>
+      <h2>ASBAK</h2>
  <table>
   <tr>
     <td>Harga Produk</td>
@@ -163,7 +165,6 @@
     <td>Stock</td>
     <td><strong>Tersedia</strong></td>
   </tr>
-
   <tr>
     <td>Provinsi</td>
     <td><strong>Bali</strong></td>
@@ -179,14 +180,16 @@
     </a>
   </td>
 </tr>
+</table>
 
-      </table>
       <div class="product-description">
-        Produk Keben berukuran 26 x 26 cm, berbahan baku dari bambu yang dibuat dengan kualitas terbaik.
+        Produk asbak berbahan baku dari bambu yang dibuat dengan kualitas terbaik.
       </div>
     </div>
     </div> <!-- penutup .product-detail -->
+  <tr>
 
+  <tr>
   <!-- Komentar dan Rating -->
   <section class="ulasan-produk">
     <h3>Ulasan Produk</h3>
@@ -201,7 +204,9 @@
     </div>
 
     <!-- Form Komentar -->
-    <form class="form-ulasan" id="formUlasan">
+  <form class="form-ulasan" action="submit_review.php" method="POST">
+  <input type="hidden" name="product_id" value="1"> <!-- ID produk -->
+
       <label for="nama">Nama Anda</label>
       <input type="text" id="nama" placeholder="Nama Anda" required>
 
