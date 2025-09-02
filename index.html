@@ -55,7 +55,6 @@
         <div class="card" style="cursor:pointer;" onclick="window.location.href='detail-tas.html'">
     <img src="tas-anyaman.jpg" alt="Tas Anyaman">
     <h4>Tas Anyaman</h4>
-    <p class="harga">Rp150.000,00</p>
     <p class="rating">⭐⭐⭐⭐⭐ (5)</p>
     <p><i class="fa fa-map-marker"></i> Desa Kayubihi, Bangli</p>
 </div>
@@ -65,7 +64,6 @@
          <div class="card" style="cursor:pointer;" onclick="window.location.href='detail-coverlampu.html'">
           <img src="lampu-anyaman.jpg" alt="Cover Lampu Anyaman">
           <h4>Cover Lampu Anyaman</h4>
-          <p class="harga">Rp100.000,00</p>
           <p class="rating">⭐⭐⭐⭐⭐ (5)</p>
           <p><i class="fa fa-map-marker"></i> Desa Kayubihi, Bangli</p>
         </div>
@@ -74,7 +72,6 @@
          <div class="card" style="cursor:pointer;" onclick="window.location.href='sokasi-detail.html'">
           <img src="keben.jpg" alt="Keben Anyaman">
           <h4>Keben Anyaman</h4>
-          <p class="harga">Rp170.000,00</p>
           <p class="rating">⭐⭐⭐⭐⭐ (5)</p>
           <p><i class="fa fa-map-marker"></i> Desa Kayubihi, Bangli</p>
         </div>
@@ -83,7 +80,6 @@
           <div class="card" style="cursor:pointer;" onclick="window.location.href='detail-hiasan3d.html'">
           <img src="dinding-ukiran.jpg" alt="Dinding Ukiran 3D">
           <h4>Dinding Ukiran 3D</h4>
-          <p class="harga">Rp250.000,00</p>
           <p class="rating">⭐⭐⭐⭐⭐ (5)</p>
           <p><i class="fa fa-map-marker"></i> Desa Kayubihi, Bangli</p>
         </div>
@@ -92,7 +88,6 @@
           <div class="card" style="cursor:pointer;" onclick="window.location.href='detail-wadahbunga.html'">
           <img src="tas-bunga.jpg" alt="Tas Bunga">
           <h4>Tas Bunga</h4>
-          <p class="harga">Rp50.000,00</p>
           <p class="rating">⭐⭐⭐⭐⭐ (5)</p>
           <p><i class="fa fa-map-marker"></i> Desa Kayubihi, Bangli</p>
         </div>
@@ -101,7 +96,6 @@
           <div class="card" style="cursor:pointer;" onclick="window.location.href='detail-kukusan.html'">
           <img src="kukusan.jpg" alt="Kukusan Dimsum">
           <h4>Kukusan Dimsum</h4>
-          <p class="harga">Rp150.000,00</p>
           <p class="rating">⭐⭐⭐⭐⭐ (5)</p>
           <p><i class="fa fa-map-marker"></i> Desa Kayubihi, Bangli</p>
         </div>
@@ -110,7 +104,6 @@
           <div class="card" style="cursor:pointer;" onclick="window.location.href='detail-keranjang.html'">
           <img src="keranjang.jpg" alt="Keranjang Piknik">
           <h4>Keranjang Piknik</h4>
-          <p class="harga">Rp100.000,00</p>
           <p class="rating">⭐⭐⭐⭐⭐ (5)</p>
           <p><i class="fa fa-map-marker"></i> Desa Kayubihi, Bangli</p>
         </div>
@@ -119,7 +112,6 @@
           <div class="card" style="cursor:pointer;" onclick="window.location.href='detail-astrak.html'">
           <img src="astrak.jpg" alt="Astrak">
           <h4>Astrak</h4>
-          <p class="harga">Rp350.000,00</p>
           <p class="rating">⭐⭐⭐⭐⭐ (5)</p>
           <p><i class="fa fa-map-marker"></i> Desa Kayubihi, Bangli</p>
         </div>
@@ -150,5 +142,27 @@
     <p><i class="fa fa-copyright"></i> 2025 Copyright Kedibihi.com. All Rights Reserved</p>
   </div>
 </footer>
+</body>
+</html>
+
+...
+<!-- Script Search -->
+<script>
+  const searchBar = document.querySelector(".search-bar");
+
+  searchBar.addEventListener("keyup", function () {
+    let keyword = searchBar.value.toLowerCase();
+    let products = document.querySelectorAll(".card");
+
+    products.forEach((card) => {
+      let title = card.querySelector("h4").textContent.toLowerCase();
+      if (title.includes(keyword)) {
+        card.style.display = "block"; // tampilkan
+      } else {
+        card.style.display = "none"; // sembunyikan
+      }
+    });
+  });
+</script>
 </body>
 </html>
