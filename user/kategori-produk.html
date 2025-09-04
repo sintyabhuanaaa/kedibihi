@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kategori Produk | Kedibihi</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -150,5 +150,27 @@
       .then(data => document.getElementById("footer").innerHTML = data);
   </script>
 
+</body>
+</html>
+
+...
+<!-- Script Search -->
+<script>
+  const searchBar = document.querySelector(".search-bar");
+
+  searchBar.addEventListener("keyup", function () {
+    let keyword = searchBar.value.toLowerCase();
+    let products = document.querySelectorAll(".card");
+
+    products.forEach((card) => {
+      let title = card.querySelector("h4").textContent.toLowerCase();
+      if (title.includes(keyword)) {
+        card.style.display = "block"; // tampilkan
+      } else {
+        card.style.display = "none"; // sembunyikan
+      }
+    });
+  });
+</script>
 </body>
 </html>

@@ -3,10 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css" />
+
+  <!-- CSS utama -->
+  <link rel="stylesheet" href="../assets/css/style.css" />
+
+  <!-- Font Awesome (pakai CDN resmi, tidak perlu kit lagi) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -153,7 +159,7 @@
 
   <!-- Detail Produk -->
   <div class="product-detail">
-    <img src="assets/img/asbak.png" alt="Sok Asi / Keben">
+    <img src="../assets/img/asbak.png" alt="Sok Asi / Keben">
     <div class="product-info">
       <h2>ASBAK</h2>
  <table>
@@ -232,15 +238,14 @@
 
   <!-- Load Header & Footer -->
   <script>
-    fetch("header.html")
+    fetch("./header1.html")
       .then(response => response.text())
       .then(data => document.getElementById("header").innerHTML = data);
 
-    fetch("footer.html")
+    fetch("../footer.html")
       .then(response => response.text())
       .then(data => document.getElementById("footer").innerHTML = data);
 
-    // =============== ULASAN DINAMIS (DUMMY FRONTEND) ===============
     const form = document.getElementById("formUlasan");
     const daftarUlasan = document.getElementById("daftarUlasan");
 

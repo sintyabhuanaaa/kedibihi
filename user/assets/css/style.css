@@ -43,7 +43,7 @@ nav a {
 
 /* =================== HERO =================== */
 .hero {
-    background: url('sawah.jpg') no-repeat center center/cover;
+    background: url('/user/assets/img/sawah.jpg') no-repeat center center/cover;
     height: 400px;
     display: flex;
     align-items: center;
@@ -61,7 +61,7 @@ nav a {
 
 /* =================== CAROUSEL =================== */
 .carousel {
-    background-image: url('promo.jpg');
+    background-image: url('/user/assets/img/promo.jpg');
     background-size: cover;
     background-position: center;
     padding: 40px 80px;
