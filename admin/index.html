@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Admin | Kedibihi</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">
+      <img src="images/logo.png" alt="Logo Kedibihi">
+    </div>
+    <ul>
+      <li class="active"><a href="index.html">Dashboard</a></li>
+      <li><a href="produk.html">Manajemen Produk</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="app-header">
+      <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle Sidebar">☰</button>
+      <h2>Dashboard Admin</h2>
+      <div class="header-right">
+        <img src="images/profil.png" alt="Profil Admin" class="profile-icon" id="profile-icon">
+        <div class="dropdown" id="profile-dropdown">
+          <button onclick="bukaModalPassword()">Ganti Kata Sandi</button>
+          <button onclick="logoutAdmin()">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- KPI Cards -->
+    <section class="grid-kpi">
+      <div class="kpi-card">
+        <div class="kpi-title">Total Produk Aktif</div>
+        <div class="kpi-value" id="kpi-total-produk">0</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Produk Stok Habis</div>
+        <div class="kpi-value" id="kpi-stok-habis">0</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Rata-rata Rating (bulan ini)</div>
+        <div class="kpi-value" id="kpi-rating-bulan-ini">0.0</div>
+      </div>
+    </section>
+
+    <!-- Grafik Rating Per Bulan -->
+    <div class="card">
+      <div class="card-title">Rata-rata Rating Per Bulan</div>
+      <div style="height:300px;">
+        <canvas id="ratingChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Stok Rendah -->
+    <div class="card">
+      <div class="card-title">Stok Terendah (Top 3)</div>
+      <ul class="low-stock-list" id="low-stock-list"></ul>
+    </div>
+  </main>
+
+  <!-- Modal Ganti Password -->
+  <div id="password-overlay" 
+       style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+              background:rgba(0,0,0,0.5);justify-content:center;align-items:center;z-index:1000;">
+    <div style="background:#fff;padding:20px;border-radius:10px;width:320px;">
+      <h3>Ganti Kata Sandi</h3>
+      <form id="form-password">
+        <input type="password" id="password-lama" placeholder="Password Lama" required style="width:100%;margin-bottom:10px;padding:8px;">
+        <input type="password" id="password-baru" placeholder="Password Baru" required style="width:100%;margin-bottom:10px;padding:8px;">
+        <input type="password" id="password-konfirmasi" placeholder="Konfirmasi Password Baru" required style="width:100%;margin-bottom:10px;padding:8px;">
+        <button type="submit" style="width:100%;margin-bottom:8px;">Simpan</button>
+        <button type="button" onclick="tutupModalPassword()" style="width:100%;">Batal</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Sidebar toggle (mobile)
+    document.getElementById('sidebarToggle').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+    });
+
+    // Dropdown profil
+    const profileIcon = document.getElementById("profile-icon");
+    const profileDropdown = document.getElementById("profile-dropdown");
+    profileIcon.addEventListener("click", function(e){
+      e.stopPropagation();
+      profileDropdown.style.display = profileDropdown.style.display === "flex" ? "none" : "flex";
+    });
+    window.addEventListener("click", function(e) {
+      if (!e.target.closest(".header-right")) profileDropdown.style.display = "none";
+    });
+
+    // Modal Password
+    function bukaModalPassword() {
+      document.getElementById("password-overlay").style.display = "flex";
+      profileDropdown.style.display = "none";
+    }
+    function tutupModalPassword() {
+      document.getElementById("password-overlay").style.display = "none";
+    }
+    document.getElementById("form-password").addEventListener("submit", function(e){
+      e.preventDefault();
+      const pwLama = document.getElementById("password-lama").value;
+      const pwBaru = document.getElementById("password-baru").value;
+      const pwKonf = document.getElementById("password-konfirmasi").value;
+
+      const saved = JSON.parse(localStorage.getItem("adminUser")) || {};
+      if (pwLama !== saved.password) {
+        alert("Password lama salah!");
+        return;
+      }
+      if (pwBaru !== pwKonf) {
+        alert("Password baru dan konfirmasi tidak sama!");
+        return;
+      }
+      saved.password = pwBaru;
+      localStorage.setItem("adminUser", JSON.stringify(saved));
+      alert("Password berhasil diperbarui!");
+      tutupModalPassword();
+    });
+
+    // Logout
+    function logoutAdmin() {
+      localStorage.removeItem("adminLoggedIn");
+      window.location.href = "login.html";
+    }
+
+    // Inisialisasi dashboard
+    document.addEventListener("DOMContentLoaded", () => {
+      const produk = JSON.parse(localStorage.getItem("produkList")) || [];
+
+      // KPI
+      document.getElementById("kpi-total-produk").textContent = produk.length;
+      document.getElementById("kpi-stok-habis").textContent = produk.filter(p => p.stok == 0).length;
+      document.getElementById("kpi-rating-bulan-ini").textContent = "4.5";
+
+      // Stok terendah (Top 3)
+      const lowStock = [...produk].sort((a,b) => a.stok - b.stok).slice(0,3);
+      document.getElementById("low-stock-list").innerHTML =
+        lowStock.map(p => `<li>${p.nama} - Stok: ${p.stok}</li>`).join("");
+
+      // Grafik rating per bulan
+      const ctx = document.getElementById("ratingChart").getContext("2d");
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+          datasets: [{
+            label: 'Rata-rata Rating',
+            data: [4.2, 4.5, 4.4, 4.6, 4.7, 4.5],
+            fill: false,
+            borderColor: 'blue',
+            tension: 0.2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: { y: { beginAtZero: true, max: 5 } }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Admin</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <body class="auth-page">
+  <div class="center-page">
+    <div class="auth-container">
+      <h2>Login Admin</h2>
+      <form id="login-form">
+        <label>Email atau Username</label>
+        <input type="text" id="userInput" required>
+
+        <label>Password</label>
+        <input type="password" id="password" required>
+
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("login-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const input = document.getElementById("userInput").value.trim();
+      const pass = document.getElementById("password").value.trim();
+
+      const savedAdmin = JSON.parse(localStorage.getItem("adminUser"));
+      if (!savedAdmin) {
+        alert("Belum ada akun admin terdaftar. Silakan daftar dulu.");
+        window.location.href = "register.html";
+        return;
+      }
+
+      const validUser = (input === savedAdmin.username || input === savedAdmin.email);
+      const validPass = (pass === savedAdmin.password);
+
+      if (validUser && validPass) {
+        localStorage.setItem("adminLoggedIn", "true");
+        window.location.href = "index.html";
+      } else {
+        alert("Email/Username atau Password salah!");
+      }
+    });
+  </script>
+</body>
+</html>
